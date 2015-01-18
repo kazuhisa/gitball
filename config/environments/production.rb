@@ -42,6 +42,9 @@ Rails.application.configure do
   # config.force_ssl = true
 
   # Set to :debug to see everything in the log.
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger::INFO
+
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
@@ -76,6 +79,4 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.logger = Logger.new(STDOUT)
-  config.logger.level = Logger::INFO
 end
