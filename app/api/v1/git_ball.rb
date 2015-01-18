@@ -7,7 +7,7 @@ class GitBall < Grape::API
     end
 
     post '/' do
-      PostLog.create(data: params)
+      PostLog.create(data: params.to_s)
     end
   end
 end
