@@ -2,12 +2,12 @@ class GitBall < Grape::API
   format :json
 
   resource :comment do
-    # params do
-    #   requires :Parameters, type: String
-    # end
+    params do
+      requires :payload, type: String
+    end
 
     post '/' do
-      PostLog.create(data: params.to_s)
+      PostLog.create(data: params.payload.to_s)
     end
   end
 end
