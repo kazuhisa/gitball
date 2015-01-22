@@ -41,3 +41,4 @@ gem 'spring',        group: :development
 gem 'grape'
 gem 'rails_12factor'
 gem 'pg'
+gem 'octokit'
