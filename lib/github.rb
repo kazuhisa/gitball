@@ -11,12 +11,12 @@ class Github
   end
 
   def run
+    return if @data['comment'].blank? || @data['comment']['body'].blank?
+    comment = @data['comment']['body']
     issue_number = @data['issue']['number']
     remove_ball_labels(issue_number)
-    tags = create_tags_from_message(@data['comment']['body'])
+    tags = create_tags_from_message(comment)
     add_labels_to_an_issue(issue_number, tags)
-  rescue
-    raise @data.to_s
   end
 
   # issueにラベルを追加する
