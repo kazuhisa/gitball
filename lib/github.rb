@@ -11,10 +11,10 @@ class Github
   end
 
   def run
-    issume_number = @data['issue']['number']
-    remove_ball_labels(issume_number)
+    issue_number = @data['issue']['number']
+    remove_ball_labels(issue_number)
     tags = create_tags_from_message(@data['comment']['body'])
-    add_labels_to_an_issue(issume_number, tags)
+    add_labels_to_an_issue(issue_number, tags)
   end
 
   # issueにラベルを追加する
