@@ -16,7 +16,7 @@ class Github
     tags = create_tags_from_message(@data['comment']['body'])
     add_labels_to_an_issue(issue_number, tags)
   rescue
-    raise @data
+    raise @data.to_s
   end
 
   # issueにラベルを追加する
