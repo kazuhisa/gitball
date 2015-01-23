@@ -21,9 +21,9 @@ class Github
     # Getting issue number
     def number
       return nil unless @data['action'] == 'created' || @data['action'] == 'opened'
-      if @data.has_key?('issue') # issue
+      if @data.has_key?('issue')
         @data['issue']['number']
-      elsif @data.has_key?('pull_request') # pullreq
+      elsif @data.has_key?('pull_request')
         @data['pull_request']['number']
       else
         nil
@@ -35,6 +35,19 @@ class Github
       list = message.scan(/@[a-z0-9_-]+/i)
       list.map { |v| v.sub('@','') + '_ball' }
     end
+
+    def repos
+      url = if @data.has_key?('issue')
+        @data['issue']['url']
+      elsif @data.has_key?('pull_request')
+        @data['pull_request']['url']
+      else
+        nil
+      end
+      return nil if url.blank?
+      list = URI.parse(url).path.split('/')
+      "#{list[2]}/#{list[3]}"
+    end
   end
 
   def self.update_ball_tag(payload)
@@ -43,7 +56,6 @@ class Github
 
   def initialize(arg)
     @payload = Payload.new(arg)
-    @repos = 'kazuhisa/gitball'
     @client = Octokit::Client.new(:access_token => ENV['GITHUB_ACCESS_TOKEN'])
   end
 
@@ -55,17 +67,17 @@ class Github
 
   # add label for issue
   def add_labels_to_an_issue(issue_number, label_names)
-    @client.add_labels_to_an_issue(@repos, issue_number, label_names)
+    @client.add_labels_to_an_issue(@payload.repos, issue_number, label_names)
   end
 
   # remove label from issue
   def remove_label(issue_number, label_name)
-    @client.remove_label(@repos, issue_number, label_name)
+    @client.remove_label(@payload.repos, issue_number, label_name)
   end
 
   # getting labels from issue
   def labels_for_issue(issue_number)
-    @client.labels_for_issue(@repos, issue_number)
+    @client.labels_for_issue(@payload.repos, issue_number)
   end
 
   # remove all labels from issue
