@@ -61,6 +61,7 @@ class Github
 
   def run
     return if @payload.number.nil?
+    return if @payload.ball_tags.size == 0
     remove_ball_labels(@payload.number)
     add_labels_to_an_issue(@payload.number, @payload.ball_tags)
   end
