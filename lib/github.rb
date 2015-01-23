@@ -11,9 +11,9 @@ class Github
       return [] unless @data['action'] == 'created' || @data['action'] == 'opened'
       if @data['action'] == 'created' && @data.has_key?('issue') #issueとプルリクにコメントが追加された場合
         create_tags_from_message(@data['comment']['body'])
-      elsif @data['action'] == 'opend' && @data.has_key?('issue') #issueが新規作成された場合
+      elsif @data['action'] == 'opened' && @data.has_key?('issue') #issueが新規作成された場合
         create_tags_from_message(@data['issue']['body'])
-      elsif @data['action'] == 'opend' && @data.has_key?('pull_request') # プルリクが新規作成された場合
+      elsif @data['action'] == 'opened' && @data.has_key?('pull_request') # プルリクが新規作成された場合
         create_tags_from_message(@data['pull_request']['body'])
       end
     end
