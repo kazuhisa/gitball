@@ -8,8 +8,8 @@ class GitBall < Grape::API
     end
 
     post '/' do
-      Github.update_ball_tag(params.payload.to_s)
       PostLog.create(data: params.payload.to_s)
+      Github.update_ball_tag(params.payload.to_s)
     end
   end
 end
